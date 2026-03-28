@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Limited Şirket — Kapsamlı Ders Notu</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0f0f;
+    --surface: #161818;
+    --surface2: #1e2020;
+    --border: #2a2e2e;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-dim: rgba(201,168,76,0.15);
+    --red: #c94c4c;
+    --red-dim: rgba(201,76,76,0.12);
+    --green: #4caa7a;
+    --green-dim: rgba(76,170,122,0.12);
+    --blue: #4c7ac9;
+    --blue-dim: rgba(76,122,201,0.12);
+    --text: #e8e4dc;
+    --text-muted: #8a8a82;
+    --text-dim: #b8b4aa;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(160deg, #161818 0%, #1a1c1c 60%, #0e1010 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(201,168,76,0.07) 0%, transparent 70%);
+  }
+  header .eyebrow {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 900;
+    color: var(--gold-light);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  header .subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-style: italic;
+    font-weight: 300;
+    max-width: 55ch;
+    margin: 0 auto;
+  }
+  .law-ref {
+    display: inline-block;
+    margin-top: 1.5rem;
+    background: var(--gold-dim);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold);
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.35rem 1rem;
+    border-radius: 2px;
+  }
+
+  /* LAYOUT */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem 6rem;
+  }
+
+  /* TOC */
+  .toc {
+    margin: 3rem 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 2rem 2.5rem;
+  }
+  .toc h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+  .toc ol {
+    list-style: none;
+    counter-reset: toc;
+    column-count: 2;
+    column-gap: 2rem;
+  }
+  .toc ol li {
+    counter-increment: toc;
+    padding: 0.2rem 0;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+  }
+  .toc ol li::before {
+    content: counter(toc, decimal-leading-zero) ". ";
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .toc ol li a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .toc ol li a:hover { color: var(--gold-light); }
+
+  /* SECTIONS */
+  section {
+    margin-top: 3.5rem;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.8rem;
+  }
+  .section-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--gold-dim);
+    line-height: 1;
+    flex-shrink: 0;
+    border: 1px solid rgba(201,168,76,0.2);
+    width: 2.6rem;
+    height: 2.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: var(--gold);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  /* CONTENT BLOCKS */
+  .prose p {
+    color: var(--text-dim);
+    margin-bottom: 1rem;
+    font-weight: 300;
+  }
+  .prose p strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* KANUN MADDESİ */
+  .madde {
+    background: var(--surface2);
+    border-left: 3px solid var(--gold);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+  .madde strong {
+    color: var(--gold);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  /* KARŞILAŞTIRMA TABLOSU */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.88rem;
+  }
+  .compare-table th {
+    background: var(--surface2);
+    color: var(--gold);
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 2px solid var(--gold);
+  }
+  .compare-table td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dim);
+    vertical-align: top;
+  }
+  .compare-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .compare-table .label { color: var(--text); font-weight: 600; }
+  .tag-ltd { color: var(--green); font-weight: 600; }
+  .tag-ano { color: var(--blue); font-weight: 600; }
+
+  /* UYARI / ÖNEMLİ KUTULAR */
+  .box {
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 2px;
+    font-size: 0.9rem;
+  }
+  .box-warning {
+    background: var(--red-dim);
+    border-left: 3px solid var(--red);
+    color: var(--text-dim);
+  }
+  .box-info {
+    background: var(--blue-dim);
+    border-left: 3px solid var(--blue);
+    color: var(--text-dim);
+  }
+  .box-tip {
+    background: var(--green-dim);
+    border-left: 3px solid var(--green);
+    color: var(--text-dim);
+  }
+  .box-gold {
+    background: var(--gold-dim);
+    border-left: 3px solid var(--gold);
+    color: var(--text-dim);
+  }
+  .box strong { display: block; margin-bottom: 0.4rem; }
+  .box-warning strong { color: var(--red); }
+  .box-info strong { color: var(--blue); }
+  .box-tip strong { color: var(--green); }
+  .box-gold strong { color: var(--gold); }
+
+  /* LİSTE */
+  ul.styled, ol.styled {
+    padding-left: 1.5rem;
+    color: var(--text-dim);
+    font-size: 0.92rem;
+  }
+  ul.styled li, ol.styled li {
+    margin-bottom: 0.5rem;
+    padding-left: 0.3rem;
+  }
+  ul.styled li::marker { color: var(--gold); }
+  ol.styled li::marker { color: var(--gold); font-weight: 600; }
+  ul.styled li strong, ol.styled li strong { color: var(--text); }
+
+  /* ÖZET KART */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .summary-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.2rem 1.4rem;
+    text-align: center;
+  }
+  .summary-card .val {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--gold-light);
+    line-height: 1.1;
+  }
+  .summary-card .lbl {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 0.3rem;
+  }
+
+  /* SUBSECTION */
+  .sub-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    margin: 2rem 0 0.8rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px dashed var(--border);
+  }
+
+  /* BADGE */
+  .badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+    margin-right: 0.3rem;
+  }
+  .badge-gold { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(201,168,76,0.3); }
+  .badge-red  { background: var(--red-dim);  color: var(--red);  border: 1px solid rgba(201,76,76,0.3); }
+  .badge-green{ background: var(--green-dim);color: var(--green);border: 1px solid rgba(76,170,122,0.3);}
+  .badge-blue { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(76,122,201,0.3);}
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-style: italic;
+  }
+
+  @media (max-width: 600px) {
+    .toc ol { column-count: 1; }
+    .summary-grid { grid-template-columns: 1fr 1fr; }
+    header { padding: 3rem 1.5rem 2rem; }
+    .container { padding: 0 1.2rem 4rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Ticaret Hukuku — Ders Notu</div>
+  <h1>Limited Şirket</h1>
+  <p class="subtitle">Türk Ticaret Kanunu çerçevesinde limited şirketin yapısı, organları, ortakların hak ve borçları ile anonim şirketten temel farkları</p>
+  <span class="law-ref">TTK Mad. 573–644</span>
+</header>
+
+<div class="container">
+
+  <!-- TOC -->
+  <nav class="toc">
+    <h2>İçindekiler</h2>
+    <ol>
+      <li><a href="#genel">Genel Nitelik & Tanım</a></li>
+      <li><a href="#kurulus">Kuruluş & Sermaye</a></li>
+      <li><a href="#sirket-sozlesmesi">Şirket Sözleşmesi</a></li>
+      <li><a href="#pay-devri">Esas Sermaye Payı & Devir</a></li>
+      <li><a href="#organlar">Organlar</a></li>
+      <li><a href="#genel-kurul">Genel Kurul</a></li>
+      <li><a href="#mudurler">Müdürler</a></li>
+      <li><a href="#ortaklar">Ortakların Hak ve Borçları</a></li>
+      <li><a href="#kar">Kâr Payı & Yedek Akçe</a></li>
+      <li><a href="#cikma">Çıkma & Çıkarılma</a></li>
+      <li><a href="#sona-erme">Sona Erme & Tasfiye</a></li>
+      <li><a href="#farklar">ANONİM'den Temel Farklar (Özet)</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1. GENEL NİTELİK -->
+  <section id="genel">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Genel Nitelik & Tanım</h2>
+    </div>
+    <div class="prose">
+      <p>Limited şirket, Türk hukukunda <strong>melez (hibrit) yapılı</strong> bir şirket türüdür. Hem <strong>sermaye şirketi</strong> hem de <strong>şahıs şirketi</strong> özelliklerini bünyesinde barındırır.</p>
+    </div>
+
+    <div class="madde">
+      <strong>TTK Madde 573 —</strong> "Limited şirket, bir veya daha çok gerçek veya tüzel kişi tarafından bir ticaret unvanı altında kurulur; esas sermayesi belirli olup bu sermaye esas sermaye paylarının toplamından oluşur."
+    </div>
+
+    <div class="summary-grid">
+      <div class="summary-card"><div class="val">10.000 ₺</div><div class="lbl">Asgari Esas Sermaye</div></div>
+      <div class="summary-card"><div class="val">50</div><div class="lbl">Azami Ortak Sayısı</div></div>
+      <div class="summary-card"><div class="val">25 ₺</div><div class="lbl">Asgari Pay İtibari Değeri</div></div>
+      <div class="summary-card"><div class="val">1</div><div class="lbl">Asgari Ortak Sayısı (tek kişi)</div></div>
+    </div>
+
+    <div class="sub-title">Şahıs Şirketi Özellikleri</div>
+    <ul class="styled">
+      <li>Ortak sayısı sınırlı (en fazla 50 ortak)</li>
+      <li>Ortakların kişiliği önemlidir → pay devrini <strong>tamamen yasaklamak</strong> mümkün</li>
+      <li>Ortaklar <strong>sır saklama</strong> ve <strong>bağlılık yükümü</strong>ne tabidir</li>
+      <li>Rekabet yasağı öngörülebilir</li>
+      <li>Ortaklar şirketten <strong>çıkabilir</strong>; şirket ortağı <strong>çıkarabilir</strong></li>
+      <li>Şirket sözleşmesiyle kanuni düzenlemelerden geniş ölçüde sapılabilir</li>
+    </ul>
+
+    <div class="sub-title">Sermaye Şirketi Özellikleri</div>
+    <ul class="styled">
+      <li><strong>Sınırlı sorumluluk:</strong> Ortaklar şirket borçlarından şahsen sorumlu değildir</li>
+      <li>Tüzel kişilik → tescille kazanılır</li>
+      <li>Esas sermaye paylara bölünmüştür</li>
+      <li>Bir ortak <strong>birden fazla</strong> paya sahip olabilir (yeni TTK ile)</li>
+    </ul>
+
+    <div class="box box-gold">
+      <strong>⚠ Hangi faaliyetler sadece anonim şirkete özgüdür?</strong>
+      Bankalar ve sermaye piyasasında faaliyet gösteren aracı kurumlar <em>zorunlu olarak</em> anonim şirket şeklinde kurulmalıdır. Limited şirket olarak banka kurulamaz.
+    </div>
+  </section>
+
+  <!-- 2. KURULUŞ & SERMAYE -->
+  <section id="kurulus">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Kuruluş & Sermaye</h2>
+    </div>
+
+    <div class="sub-title">Kuruluş Usulü</div>
+    <div class="prose">
+      <p>Şirket sözleşmesi <strong>yazılı şekilde</strong> yapılır ve kurucular tarafından <strong>ticaret sicili müdürlüğünde yetkili personelin önünde</strong> imzalanır. Noterlik artık zorunlu değildir (2016 değişikliği). Değerli kâğıt bedeli de alınmamaktadır.</p>
+      <p>Tescille birlikte <strong>tüzel kişilik</strong> kazanılır.</p>
+    </div>
+
+    <div class="box box-tip">
+      <strong>✓ Nakdi Sermaye Ön Ödeme Şartı Kaldırıldı (2018)</strong>
+      Anonim şirkette nakden taahhüt edilen sermayenin en az %25'inin tescilden önce ödenmesi zorunludur. <em>Limited şirkette bu şart uygulanmaz</em> — cebinizden hiç para çıkmadan şirket kurabilirsiniz.
+    </div>
+
+    <div class="sub-title">Sermayeye Konabilecek Değerler (TTK 581)</div>
+    <ul class="styled">
+      <li>Üzerinde sınırlı aynî hak, aciz veya tedbir bulunmayan, nakden değerlendirilebilen ve devredilebilen her türlü mal varlığı unsuru</li>
+      <li>Fikrî mülkiyet hakları, ticari işletme, marka, patent</li>
+    </ul>
+    <div class="box box-warning">
+      <strong>✗ Sermaye Olamayacaklar</strong>
+      Hizmet edimleri, kişisel emek, ticari itibar ve vadesi gelmemiş alacaklar esas sermayeye konulamaz.
+    </div>
+
+    <div class="sub-title">Tek Kişilik Şirket</div>
+    <div class="prose">
+      <p>Bir kişi ile kurulabilir. Sonradan ortak sayısı bire düşerse bu durum tescil edilerek ilan edilmelidir. Şirket, kendi payının tek sahibi olamaz (TTK 574/3).</p>
+    </div>
+
+    <div class="sub-title">Sınırlı Sorumluluk & İstisnası</div>
+    <div class="prose">
+      <p>Ortaklar şirket borçlarından sorumlu değildir; yalnızca taahhüt ettikleri esas sermaye payını ödemekle yükümlüdürler.</p>
+    </div>
+    <div class="box box-warning">
+      <strong>⚠ Amme Alacaklarından Sorumluluk (AATUHK Mad. 35) — ANONİM'den FARK</strong>
+      Limited şirket ortakları, şirketten tamamen veya kısmen tahsil edilemeyen <em>kamu alacaklarından</em> (vergi, SGK primleri vb.) <strong>sermaye hisseleri oranında doğrudan ve şahsen sorumludur</strong>. Bu sorumluluk anonim şirket pay sahipleri için öngörülmemiştir; ancak her iki şirkette de kanuni temsilciler (mükerrer md. 35) ayrıca sorumludur.
+    </div>
+  </section>
+
+  <!-- 3. ŞİRKET SÖZLEŞMESİ -->
+  <section id="sirket-sozlesmesi">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Şirket Sözleşmesi</h2>
+    </div>
+
+    <div class="prose">
+      <p>Anonim şirkette <em>esas sözleşme</em> denirken, limited şirkette <em>şirket sözleşmesi</em> terimi kullanılır. Hükümler büyük ölçüde İsviçre'den doğrudan tercüme edilmiştir.</p>
+    </div>
+
+    <div class="sub-title">Zorunlu (Asgari) İçerik — TTK 576</div>
+    <ul class="styled">
+      <li>Ticaret unvanı ve merkezi</li>
+      <li>İşletme konusu</li>
+      <li>Esas sermayenin toplam tutarı, payların sayısı, itibari değerleri, varsa imtiyazlar ve gruplar</li>
+      <li>Müdürlerin ad-soyad, uyruk bilgileri</li>
+      <li>Şirket ilanlarının şekli</li>
+    </ul>
+
+    <div class="sub-title">İhtiyari (Bağlayıcı Olabilecek) İçerik — TTK 577</div>
+    <ul class="styled">
+      <li><strong>Pay devri sınırlamaları / yasağı</strong> (anonim'de tam yasak mümkün değil; limited'de mümkün)</li>
+      <li>Ön alım, geri alım, alım hakları (bunlar üçüncü kişilere karşı da ileri sürülebilir)</li>
+      <li>Ek ödeme ve yan edim yükümlülükleri</li>
+      <li><strong>Veto hakkı</strong> veya <strong>üstün oy hakkı</strong> (anonim'de kabul edilmez; şahıs şirketi özelliği)</li>
+      <li>Rekabet yasağı</li>
+      <li>Çıkma hakkı ve şartları, ayrılma akçesi</li>
+      <li>Çıkarma sebepleri</li>
+      <li>Kanunda belirtilenler dışında sona erme sebepleri</li>
+    </ul>
+
+    <div class="sub-title">Şirket Sözleşmesinin Değiştirilmesi</div>
+    <div class="madde">
+      <strong>TTK 589 —</strong> Aksi öngörülmedikçe şirket sözleşmesi, <strong>esas sermayenin 3/2'sini temsil eden ortakların</strong> kararıyla değiştirilir.
+    </div>
+    <div class="prose"><p>Bu oran, anonim şirketteki çoğunluk oranından <strong>daha yüksektir</strong> → şahıs şirketi özelliği.</p></div>
+
+    <div class="sub-title">Emredici Hükümler</div>
+    <div class="box box-info">
+      <strong>ℹ Bilgi</strong>
+      Limited şirketler için de emredici hükümler geçerlidir. Kanun, emredici hükümlerden yalnızca açıkça izin verilen durumlarda sapılmasına cevaz verir. Almanya'da bu emredici hükümler yalnızca anonim şirketlere özgüdür; limited şirketler daha esnektir. Türk hukuku bu konuda daha kısıtlayıcıdır.
+    </div>
+  </section>
+
+  <!-- 4. ESAS SERMAYE PAYI & DEVİR -->
+  <section id="pay-devri">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Esas Sermaye Payı & Devir</h2>
+    </div>
+
+    <div class="sub-title">Pay Defteri</div>
+    <div class="prose">
+      <p>Tüm ortaklar pay defterinde yer alır (anonim'deki hamiline / nama ayrımı yoktur). Defterde; ortakların adı-soyadı/adresi, payların sayısı ve itibari değeri, devirler, intifa ve rehin hakları kayıtlıdır. Her ortak defteri inceleyebilir.</p>
+    </div>
+
+    <div class="sub-title">Devir Şekli</div>
+    <div class="madde">
+      <strong>TTK 595 —</strong> Esas sermaye payının devri ve devir borcunu doğuran işlemler <strong>yazılı şekilde</strong> yapılır; tarafların imzaları <strong>noterce onaylanır.</strong>
+    </div>
+
+    <div class="sub-title">Genel Kurul Onayı</div>
+    <div class="prose">
+      <p>Şirket sözleşmesinde aksine hüküm yoksa, devrin geçerli olabilmesi için <strong>ortaklar genel kurulunun onayı</strong> şarttır. Genel kurul, <em>sebep göstermeksizin</em> onayı reddedebilir (anonim şirketteki escape clause veya haklı sebep zorunluluğu yoktur).</p>
+      <p>Başvurudan itibaren <strong>3 ay</strong> içinde karar alınmazsa onay verilmiş sayılır.</p>
+    </div>
+
+    <div class="box box-gold">
+      <strong>Pay Devrini Tamamen Yasaklamak Mümkündür</strong>
+      Şirket sözleşmesiyle devir tamamen yasaklanabilir. Bu durumda ortağın <em>haklı sebeple şirketten çıkma hakkı</em> saklıdır.
+    </div>
+
+    <div class="sub-title">Miras, Mal Rejimi ve İcra Yoluyla Geçiş</div>
+    <div class="prose">
+      <p>Bu hallerde genel kurul onayına gerek yoktur; tüm hak ve borçlar yeni kişiye geçer. Ancak şirket, iktisabı öğrenmesinden itibaren <strong>3 ay</strong> içinde, payı <em>gerçek değer üzerinden</em> satın almayı önererek onayı reddedebilir.</p>
+      <p>Ticaret siciline tescil zorunludur (müdürler yapar). Tescil 30 gün içinde yapılmazsa <em>ayrılan ortak</em> adının silinmesini sicilden isteyebilir.</p>
+    </div>
+
+    <div class="box box-info">
+      <strong>ℹ Alacaklı Haczi & Şirketin Sona Ermesi</strong>
+      Yeni TTK ile birlikte: bir ortağın kişisel alacaklısı payı haczettirdiğinde artık şirketin feshini talep edememektedir (TTK 133/2). Bu kural sermaye şirketlerinin tamamına uygulanır.
+    </div>
+  </section>
+
+  <!-- 5. ORGANLAR -->
+  <section id="organlar">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Organlar</h2>
+    </div>
+    <div class="prose">
+      <p>Limited şirketin iki zorunlu organı vardır:</p>
+    </div>
+    <ul class="styled">
+      <li><strong>Ortaklar Genel Kurulu</strong> — anonim şirket genel kuruluna karşılık gelir</li>
+      <li><strong>Müdür(ler) / Müdürler Kurulu</strong> — anonim şirket yönetim kuruluna karşılık gelir</li>
+    </ul>
+    <div class="prose">
+      <p>Yeni TTK ile <em>özden organ ilkesi</em> kaldırılmıştır: her ortağın otomatik olarak müdür sayılacağı varsayımı yoktur. Şirket sözleşmesinde belirleme yapılması zorunludur; en az bir ortağın yönetim ve temsil hakkının bulunması şarttır.</p>
+    </div>
+  </section>
+
+  <!-- 6. GENEL KURUL -->
+  <section id="genel-kurul">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2 class="section-title">Genel Kurul</h2>
+    </div>
+
+    <div class="sub-title">Devredilemez Yetkiler</div>
+    <ul class="styled">
+      <li>Şirket sözleşmesinin değiştirilmesi</li>
+      <li>Müdürlerin atanması ve görevden alınması</li>
+      <li>Müdürlerin ücretinin belirlenmesi ve ibrası</li>
+      <li>Yıllık faaliyet raporunun onaylanması</li>
+      <li>Kâr payının belirlenmesi</li>
+      <li><strong>Esas sermaye paylarının devirlerinin onaylanması</strong> (anonim'de YK yapardı)</li>
+      <li>Bir ortağın şirketten çıkarılması için mahkemeye başvurulması</li>
+      <li>Şirketin kendi paylarını iktisap etmesi için yetkilendirme</li>
+      <li>Şirketin feshi</li>
+      <li>Ticari temsilci ve vekil atanması (anonim'de YK yapardı)</li>
+    </ul>
+
+    <div class="sub-title">Toplantı & Çağrı</div>
+    <ul class="styled">
+      <li>Müdürler tarafından toplantıya çağrılır.</li>
+      <li>Olağan genel kurul: hesap döneminin sona ermesinden itibaren <strong>3 ay</strong> içinde.</li>
+      <li>Toplantıdan en az <strong>15 gün</strong> önce çağrı yapılır (şirket sözleşmesiyle 10 güne kadar kısaltılabilir).</li>
+      <li>Anonim şirketten farklı olarak <strong>Bakanlık temsilcisi katılmaz</strong>.</li>
+      <li>Her ortak, ortak olan veya olmayan bir temsilci aracılığıyla temsil ettirilebilir.</li>
+    </ul>
+
+    <div class="sub-title">Elden Dolaşım (Yazılı Karar) Usulü — TTK 617/4</div>
+    <div class="box box-gold">
+      <strong>ANONİM'den FARK</strong>
+      Herhangi bir ortak sözlü görüşme istemediği sürece, genel kurul kararları bir ortağın önerisine diğer ortakların <em>yazılı onayları</em> alınmak suretiyle de verilebilir. Önerinin tüm ortaklara sunulması şarttır. Bu usul anonim şirket genel kurulunda mevcut değildir (yalnızca yönetim kurulu kararlarında vardı).
+    </div>
+
+    <div class="sub-title">Oy Hakları</div>
+    <div class="prose">
+      <p>Her <strong>25 TL</strong> itibari değer → <strong>1 oy hakkı</strong> verir. Şirket sözleşmesiyle daha yüksek bir tutar belirlenebilir. Her ortak en az 1 oy hakkına sahiptir.</p>
+    </div>
+
+    <div class="sub-title">Oyda İmtiyaz (Limited'e Özgü Dolaylı Yöntem)</div>
+    <div class="prose">
+      <p>Anonim şirkette doğrudan "1 pay = X oy" şeklinde imtiyaz tanınabilir. Limited şirkette ise şirket sözleşmesiyle her paya itibari değerden bağımsız olarak <em>1 oy</em> verilebilir. Örnek: 25 TL'lik pay ile 250 TL'lik pay eşit oy kullanır → 25 TL'lik pay fiilen imtiyazlı hale gelir. Ancak en küçük payın itibari değeri, diğer payların toplamının <strong>1/10'undan az olamaz</strong>.</p>
+    </div>
+
+    <div class="sub-title">Oydan Yoksunluk Halleri</div>
+    <ul class="styled">
+      <li>Müdürlerin <strong>ibrası</strong>na ilişkin oylarda yönetimde yer almış kişiler oy kullanamaz.</li>
+      <li>Payını şirkete devreden ortak, o devir kararında oy kullanamaz.</li>
+      <li>Ortağın bağlılık yükümü / rekabet yasağına aykırı faaliyet onayında ilgili ortak oy kullanamaz.</li>
+    </ul>
+    <div class="box box-info">
+      <strong>ℹ Not</strong>
+      Anonim şirkette "kişisel ilişkilerde" de oydan yoksunluk öngörülmüştür; limited şirkette bu kapsam daha dardır. Bu farklılık bilinçli bir tercihten değil, İsviçre'den doğrudan tercüme yapılmış olmasından kaynaklanmaktadır.
+    </div>
+
+    <div class="sub-title">Karar Nisapları — TTK 620 & 621</div>
+    <table class="compare-table">
+      <thead><tr><th>Karar Türü</th><th>Nisap</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="label">Olağan kararlar (seçim dahil)</td>
+          <td>Toplantıda temsil edilen oyların <strong>salt çoğunluğu</strong> (kaç kişi geldiyse onun çoğunluğu; asgari toplantı yeter sayısı yok)</td>
+        </tr>
+        <tr>
+          <td class="label">Önemli kararlar (TTK 621)</td>
+          <td>Temsil edilen oyların en az <strong>2/3'ü</strong> VE oy hakkı bulunan esas sermayenin <strong>salt çoğunluğu</strong></td>
+        </tr>
+        <tr>
+          <td class="label">Şirket sözleşmesi değişikliği (TTK 589)</td>
+          <td>Esas sermayenin <strong>3/2'sini</strong> temsil eden ortakların olumlu oyu (en ağır nisap)</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="sub-title">TTK 621 Kapsamındaki Önemli Kararlar</div>
+    <ul class="styled">
+      <li>İşletme konusunun değiştirilmesi</li>
+      <li>Oyda imtiyazlı pay öngörülmesi</li>
+      <li>Pay devrinin sınırlandırılması veya yasaklanması</li>
+      <li>Esas sermayenin artırılması</li>
+      <li>Rüçhan hakkının sınırlandırılması / kaldırılması</li>
+      <li>Şirket merkezinin değiştirilmesi</li>
+      <li>Bir ortağın şirketten çıkarılması için mahkemeye başvurulması</li>
+    </ul>
+  </section>
+
+  <!-- 7. MÜDÜRLER -->
+  <section id="mudurler">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h2 class="section-title">Müdürler</h2>
+    </div>
+
+    <div class="prose">
+      <p>Şirket yönetim ve temsili müdür(ler) aracılığıyla yürütülür. Müdür ortaklardan veya dışarıdan (3. kişi) atanabilir.</p>
+    </div>
+
+    <div class="sub-title">Müdürler Kurulu</div>
+    <ul class="styled">
+      <li>Birden fazla müdür varsa genel kurul bir <strong>müdürler kurulu başkanı</strong> seçer.</li>
+      <li>Kararlar <strong>oy çokluğuyla</strong> alınır; anonim şirketin aksine <strong>eşitlik halinde başkanın oyu üstün</strong> sayılır.</li>
+    </ul>
+
+    <div class="sub-title">Devredilemez & Vazgeçilemez Yetkiler</div>
+    <ul class="styled">
+      <li>Şirketin üst düzeyde yönetilmesi ve talimat verilmesi</li>
+      <li>Yönetim örgütünün belirlenmesi</li>
+      <li>Finansal planlamanın oluşturulması</li>
+      <li>Üst gözetim ve denetim</li>
+      <li>Genel kurulun hazırlanması ve kararların yürütülmesi</li>
+      <li>Şirketin borca batıklığı halinde mahkemeye bildirim</li>
+    </ul>
+
+    <div class="sub-title">Anonim'den Farklar</div>
+    <div class="box box-gold">
+      <strong>Ticari Temsilci Atama — ANONİM'den FARK</strong>
+      Anonim şirkette ticari temsilciyi <em>yönetim kurulu</em> atar. Limited şirkette bu yetki <em>genel kurula</em> aittir.
+    </div>
+
+    <div class="box box-gold">
+      <strong>Müdürü Görevden Alma — ANONİM'den FARK</strong>
+      Anonim şirkette müdürleri (YK üyelerini) görevden almak yalnızca genel kurulun yetkisindedir; bireysel pay sahiplerinin doğrudan müdahale imkânı yoktur. <br><br>
+      Limited şirkette ise <em>her ortak</em>, haklı sebeplerin varlığında müdürün yönetim hakkının ve temsil yetkisinin kaldırılmasını veya sınırlandırılmasını <strong>mahkemeden</strong> isteyebilir. Mahkeme aynı zamanda gerekirse kayyum atayabilir.
+    </div>
+
+    <div class="sub-title">Özen & Bağlılık Yükümü</div>
+    <div class="prose">
+      <p>Müdürler, anonim şirket yönetim kurulu üyeleriyle aynı özen ve bağlılık yükümüne tabidir (<em>Business Judgment Rule</em> geçerlidir). Şirket sözleşmesinde aksi öngörülmemiş veya tüm ortaklar yazılı onay vermemişse müdürler <strong>rekabet yasağı</strong>na tabidir.</p>
+    </div>
+
+    <div class="sub-title">Sorumluluk</div>
+    <div class="prose">
+      <p>Anonim şirket yönetim kurulu üyelerine ilişkin sorumluluk hükümleri müdürlere de kıyas yoluyla uygulanır.</p>
+    </div>
+  </section>
+
+  <!-- 8. ORTAKLAR HAK VE BORÇLARI -->
+  <section id="ortaklar">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <h2 class="section-title">Ortakların Hak ve Borçları</h2>
+    </div>
+
+    <div class="sub-title">Haklar</div>
+    <ul class="styled">
+      <li><strong>Bilgi Alma Hakkı (Geniş Kapsam):</strong> Her ortak, müdürlerden şirketin <em>tüm işleri ve hesapları</em> hakkında bilgi isteyebilir ve belirli konularda inceleme yapabilir. Anonim şirkette bu hak daha sınırlıdır (genel kurulda ya da YK izniyle kullanılır). Müdürler ancak şirkete zarar verebileceği durumlarda bilgiyi kısıtlayabilir; uyuşmazlık mahkemeye taşınır.</li>
+      <li><strong>Rüçhan Hakkı:</strong> Sermaye artırımında mevcut ortakların öncelik hakkı vardır.</li>
+      <li><strong>Kâr Payı Hakkı:</strong> İtibari değere orantılı olarak kâr payı alınır (aksi öngörülmemişse).</li>
+      <li><strong>Haklı Sebeple Fesih Davası:</strong> Her ortak bu davayı açabilir (anonim'de yalnızca azlık açabilir).</li>
+      <li><strong>Haklı Sebeple Müdürü Azletme Talebi:</strong> Her ortak mahkemeye başvurabilir.</li>
+    </ul>
+
+    <div class="sub-title">Borçlar / Yükümlülükler</div>
+    <ul class="styled">
+      <li><strong>Sır Saklama:</strong> Tüm ortaklar şirket sırlarını korumakla yükümlüdür. Bu yükümlülük şirket sözleşmesi veya GK kararıyla kaldırılamaz. (Anonim şirkette bu yükümlülük pay sahiplerine değil, yalnızca YK üyelerine aittir.)</li>
+      <li><strong>Bağlılık Yükümü:</strong> Ortaklar şirketin çıkarlarını zedeleyici davranışlarda bulunamazlar; kendilerine özel menfaat sağlayan ve şirketin amacına zarar veren işlemler yapamazlar.</li>
+      <li><strong>Rekabet Yasağı:</strong> Şirket sözleşmesiyle ortaklara rekabet yasağı öngörülebilir.</li>
+    </ul>
+
+    <div class="box box-warning">
+      <strong>ANONİM'den Kritik Fark</strong>
+      Anonim şirkette pay sahiplerinin şirkete karşı bağlılık yükümü veya rekabet yasağı yoktur. Bu yükümlülükler limited şirkete özgü şahıs şirketi özelliğinin yansımasıdır.
+    </div>
+  </section>
+
+  <!-- 9. KÂR PAYI & YEDEK AKÇE -->
+  <section id="kar">
+    <div class="section-header">
+      <span class="section-num">09</span>
+      <h2 class="section-title">Kâr Payı & Yedek Akçe</h2>
+    </div>
+
+    <div class="prose">
+      <p>Kâr payı yalnızca <strong>net dönem kârından</strong> ve bu amaçla ayrılmış yedek akçelerden dağıtılabilir. Önce kanun / şirket sözleşmesi gereği ayrılması gereken yedek akçeler ayrılmalıdır.</p>
+      <p>Kâr payı aksi öngörülmedikçe <strong>esas sermaye payının itibari değerine oranla</strong> hesaplanır (oransal ilke).</p>
+    </div>
+
+    <div class="sub-title">Olağanüstü Yedek Akçe Ayrılması</div>
+    <div class="prose">
+      <p>Genel kurul; zararların karşılanması, şirketin gelişimi için yatırım ihtiyacı veya tüm ortakların menfaati gerektiriyorsa ve bu hususlar şirket sözleşmesinde açıkça belirtilmişse olağanüstü yedek akçe ayırabilir. Anonim şirketteki düzenlemeyle paraleldir.</p>
+    </div>
+  </section>
+
+  <!-- 10. ÇIKMA & ÇIKARILMA -->
+  <section id="cikma">
+    <div class="section-header">
+      <span class="section-num">10</span>
+      <h2 class="section-title">Çıkma & Çıkarılma</h2>
+    </div>
+
+    <div class="box box-gold">
+      <strong>Anonim Şirketten En Büyük Yapısal Fark</strong>
+      Anonim şirkette ortakların şirketten çıkma veya çıkarılma hakkı kural olarak yoktur. Limited şirkette bu imkânlar açıkça düzenlenmiştir.
+    </div>
+
+    <div class="sub-title">Çıkma (Ortağın Kendi İradesiyle Ayrılması)</div>
+    <ul class="styled">
+      <li><strong>Sözleşmesel çıkma:</strong> Şirket sözleşmesinde çıkma hakkı ve şartları öngörülmüşse ortak bu şartlara uyarak çıkabilir.</li>
+      <li><strong>Haklı sebeple çıkma davası:</strong> Sözleşmede hüküm yoksa ortak, haklı sebep varlığında mahkemeden şirketten çıkmasına karar verilmesini isteyebilir. Mahkeme yargılama sürecinde ortağın haklarını dondurabilir veya durumunu teminat altına alabilir.</li>
+    </ul>
+
+    <div class="sub-title">Çıkarılma (Rıza Dışı Ayrılma)</div>
+    <ul class="styled">
+      <li><strong>Sözleşmesel çıkarma:</strong> Şirket sözleşmesinde belirtilen sebeplere dayanılarak genel kurul kararıyla ortak çıkarılabilir.</li>
+      <li><strong>Haklı sebeple mahkeme kararıyla çıkarma:</strong> Sözleşmede hüküm olmasa bile şirket, haklı sebep varlığında mahkemeden ortağın çıkarılmasını isteyebilir. Bunun için önce genel kurul kararı (TTK 621 nisabıyla) alınmalıdır.</li>
+    </ul>
+
+    <div class="box box-warning">
+      <strong>⚠ Çıkarma Kararında Oydan Yoksunluk Sorunu</strong>
+      Kanunda çıkarılacak ortağın bu kararda oy kullanamayacağına ilişkin açık bir hüküm yoktur. İsviçre uygulamasında çıkarılacak ortak oy kullanabilmektedir. Bu durum pratikte çoğunluğu oluşturan bir ortağı çıkarmanın güçlüğüne yol açmaktadır. Yargıtay kararları konuda farklılık göstermektedir.
+    </div>
+
+    <div class="sub-title">Ayrılma Akçesi</div>
+    <div class="prose">
+      <p>Şirketten ayrılan ortağa (çıkma veya çıkarılma), esas sermaye payının <strong>gerçek değerine</strong> karşılık gelen ayrılma akçesi ödenir.</p>
+    </div>
+  </section>
+
+  <!-- 11. SONA ERME & TASFİYE -->
+  <section id="sona-erme">
+    <div class="section-header">
+      <span class="section-num">11</span>
+      <h2 class="section-title">Sona Erme & Tasfiye</h2>
+    </div>
+
+    <ul class="styled">
+      <li>Şirket sözleşmesinde öngörülen bir sebep gerçekleşirse</li>
+      <li>Genel kurul kararıyla</li>
+      <li>İflas kararıyla</li>
+      <li>Organ yokluğu halinde mahkemeden fesih talep edilebilir</li>
+      <li><strong>Haklı sebeplerin varlığında her ortak</strong> fesih davası açabilir (anonim'de yalnızca azlık açabilirdi)</li>
+    </ul>
+
+    <div class="prose">
+      <p>Mahkeme, fesih yerine davacı ortağa payının gerçek değerinin ödenmesine ve ortağın şirketten çıkarılmasına ya da duruma uygun başka bir çözüme de hükmedebilir.</p>
+      <p>İflas ve mahkeme kararı dışındaki hallerde sona ermeyi tescil ve ilan yükümlülüğü <strong>müdürlere</strong> aittir. Tasfiye süreci anonim şirketle paralel yürütülür.</p>
+    </div>
+  </section>
+
+  <!-- 12. TEMEL FARKLAR ÖZET -->
+  <section id="farklar">
+    <div class="section-header">
+      <span class="section-num">12</span>
+      <h2 class="section-title">Anonim Şirketten Temel Farklar — Karşılaştırmalı Özet</h2>
+    </div>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Konu</th>
+          <th><span class="tag-ltd">Limited Şirket</span></th>
+          <th><span class="tag-ano">Anonim Şirket</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label">Asgari Sermaye</td>
+          <td>10.000 TL</td>
+          <td>50.000 TL</td>
+        </tr>
+        <tr>
+          <td class="label">Nakdi Sermaye Ön Ödemesi</td>
+          <td>Zorunlu değil (%0 da olabilir)</td>
+          <td>En az %25 tescilden önce ödenir</td>
+        </tr>
+        <tr>
+          <td class="label">Ortak Sayısı</td>
+          <td>1–50</td>
+          <td>1 – sınırsız</td>
+        </tr>
+        <tr>
+          <td class="label">Asgari Pay İtibari Değeri</td>
+          <td>25 TL (25 TL'nin katları)</td>
+          <td>1 kuruş</td>
+        </tr>
+        <tr>
+          <td class="label">Amme Alacağından Sorumluluk</td>
+          <td class="tag-ltd">Ortaklar sermaye hissesi oranında şahsen sorumlu</td>
+          <td>Pay sahipleri sorumlu değil</td>
+        </tr>
+        <tr>
+          <td class="label">Pay Devri Yasağı</td>
+          <td class="tag-ltd">Tamamen yasaklanabilir</td>
+          <td>Tamamen yasaklanamaz</td>
+        </tr>
+        <tr>
+          <td class="label">Devir Onayı</td>
+          <td>Genel Kurul (sebepsiz ret mümkün)</td>
+          <td>Yönetim Kurulu (haklı sebep gerekir)</td>
+        </tr>
+        <tr>
+          <td class="label">Ortaklara Veto / Üstün Oy</td>
+          <td class="tag-ltd">Öngörülebilir</td>
+          <td>Mümkün değil</td>
+        </tr>
+        <tr>
+          <td class="label">Ön Alım / Alım Hakkı</td>
+          <td class="tag-ltd">3. kişilere karşı ileri sürülebilir</td>
+          <td>Yalnızca borçlar hukuku etkisi</td>
+        </tr>
+        <tr>
+          <td class="label">Bağlılık Yükümü & Sır Saklama</td>
+          <td class="tag-ltd">Ortakların yükümlülüğü var</td>
+          <td>Yalnızca YK üyelerine ait</td>
+        </tr>
+        <tr>
+          <td class="label">Rekabet Yasağı (ortak)</td>
+          <td class="tag-ltd">Sözleşmeyle öngörülebilir</td>
+          <td>Pay sahipleri için yok</td>
+        </tr>
+        <tr>
+          <td class="label">Bilgi Alma Hakkı</td>
+          <td class="tag-ltd">Her ortak, her zaman, tüm konularda</td>
+          <td>GK toplantısında / YK izniyle</td>
+        </tr>
+        <tr>
+          <td class="label">Oy Hakkı Hesabı</td>
+          <td>Her 25 TL = 1 oy</td>
+          <td>Her pay en az 1 oy (serbestçe belirlenir)</td>
+        </tr>
+        <tr>
+          <td class="label">GK Yazılı Karar Usulü</td>
+          <td class="tag-ltd">Mümkün (elden dolaşım)</td>
+          <td>GK için mümkün değil</td>
+        </tr>
+        <tr>
+          <td class="label">Olağan Karar Nisabı</td>
+          <td>Mevcut oyların salt çoğunluğu (asgari katılım yok)</td>
+          <td>Katılanların salt çoğunluğu (1/4 toplantı yeter sayısı)</td>
+        </tr>
+        <tr>
+          <td class="label">GK'ya Bakanlık Temsilcisi</td>
+          <td>Katılmaz</td>
+          <td>Nitelikli toplantılarda katılır</td>
+        </tr>
+        <tr>
+          <td class="label">Ticari Temsilci Atama</td>
+          <td>Genel Kurul</td>
+          <td>Yönetim Kurulu</td>
+        </tr>
+        <tr>
+          <td class="label">Müdürü/YK'yı Azletme</td>
+          <td class="tag-ltd">GK + her ortak haklı sebeple mahkemeye başvurabilir</td>
+          <td>Yalnızca GK (bireysel pay sahibi başvuramaz)</td>
+        </tr>
+        <tr>
+          <td class="label">Eşit Oy Halinde</td>
+          <td>Müdürler kurulunda başkanın oyu üstün</td>
+          <td>Bu kural yok</td>
+        </tr>
+        <tr>
+          <td class="label">Ortağın Şirketten Çıkması</td>
+          <td class="tag-ltd">Mümkün (sözleşmesel veya mahkeme kararıyla)</td>
+          <td>Kural olarak mümkün değil</td>
+        </tr>
+        <tr>
+          <td class="label">Ortağın Şirketten Çıkarılması</td>
+          <td class="tag-ltd">Mümkün (GK kararı + mahkeme)</td>
+          <td>Kural olarak mümkün değil</td>
+        </tr>
+        <tr>
+          <td class="label">Haklı Sebeple Fesih Davacısı</td>
+          <td class="tag-ltd">Her ortak</td>
+          <td>Yalnızca azlık</td>
+        </tr>
+        <tr>
+          <td class="label">Özden Organ İlkesi</td>
+          <td>Kaldırıldı (yeni TTK)</td>
+          <td>Zaten yoktu</td>
+        </tr>
+        <tr>
+          <td class="label">Sözleşme İmzası</td>
+          <td>Ticaret sicili personeli önünde (noter yok)</td>
+          <td>Ticaret sicili personeli veya noter</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</div>
+
+<footer>
+  Bu not TTK Mad. 573–644 ve ders anlatımı esas alınarak hazırlanmıştır. Anonim şirket hükümleri limited şirkete kıyas yoluyla da uygulanmaktadır.
+</footer>
+
+</body>
+</html>
